@@ -2,18 +2,19 @@
 using System.Collections;
 using UnityEngine.UI;
 using System;
-using System.Collections.Generic;
-using Assets.Scripts.Quests;
 
 public class Quest : MonoBehaviour
 {
     public string questName;
     [Multiline]
     public string description;
-    public ObjectiveData currentObjective;
+    [HideInInspector]
+    public Objective currentObjective;
+    [HideInInspector]
     public Text currentObjectiveDescription;
-    public ObjectiveData.ObjectiveState state;
-    public List<ObjectiveData> objectives = new List<ObjectiveData>();
+    public Objective.ObjectiveState state;
+    [HideInInspector]
+    public Objective[] objectives;
 
     public delegate void QuestCompletedDelegate(Quest sender);
     public event QuestCompletedDelegate OnCompleted;
@@ -21,12 +22,12 @@ public class Quest : MonoBehaviour
     void Start ()
     {
         // Set the quest and the first objective to active
-        currentObjective.state = ObjectiveData.ObjectiveState.active;
+        currentObjective.state = Objective.ObjectiveState.active;
         //currentObjective.InvokeOnStartedEvent();
-        //GameObject objectiveParentGameObject = currentObjective.transform.parent.gameObject;
-        //if(objectiveParentGameObject != null)
-        //{
-        //    objectives = new List<ObjectiveData>(objectiveParentGameObject.GetComponentsInChildren<ObjectiveData>());
+        GameObject objectiveParentGameObject = currentObjective.transform.parent.gameObject;
+        if(objectiveParentGameObject != null)
+        {
+            objectives = objectiveParentGameObject.GetComponentsInChildren<Objective>();
             if(objectives != null)
             {
                 Debug.Log("Successfully found all mission objectives");
@@ -42,28 +43,10 @@ public class Quest : MonoBehaviour
             {
                 Debug.Log("Failed to find mission objectives");
             }
-        //}
+        }
 	}
 
-    public void AddObjective()
-    {
-        if (objectives == null)
-        {
-            objectives = new List<ObjectiveData>();
-        }
-
-        var obj = new ObjectiveData();
-
-        obj.index = objectives.Count;
-        objectives.Add(obj);
-
-        if (obj != null)
-        {
-            obj.ParentScript = this;
-        }
-    }
-
-    public ObjectiveData GetObjectiveAtIndex(int index)
+    public Objective GetObjectiveAtIndex(int index)
     {
         foreach(var obj in objectives)
         {
@@ -78,10 +61,19 @@ public class Quest : MonoBehaviour
     public void OnObjectivesCompleted()
     {
         print(string.Format("completed quest: {0}", questName));
-        state = ObjectiveData.ObjectiveState.complete;
+        state = Objective.ObjectiveState.complete;
         if(OnCompleted != null)
         {
             OnCompleted(this);
         }
+    }
+
+    public void AddObjective()
+    {
+        var go = new GameObject();
+        var obj = go.AddComponent<Objective>();
+        obj.ParentScript = this;
+        obj.transform.SetParent(transform);
+        obj.gameObject.name = "New Objective";
     }
 }

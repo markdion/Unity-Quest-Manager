@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using Assets.Scripts.Quests;
 
 public class ObjectiveDisplay : MonoBehaviour {
 
@@ -11,7 +10,7 @@ public class ObjectiveDisplay : MonoBehaviour {
     public Sprite inProgressSprite;
 
     [HideInInspector]
-    public ObjectiveData objective;
+    public Objective objective;
 
     void Start ()
     {
@@ -21,7 +20,7 @@ public class ObjectiveDisplay : MonoBehaviour {
         }
     }
 
-    public void Initialize(ObjectiveData objective)
+    public void Initialize(Objective objective)
     {
         this.objective = objective;
         if (textName != null)
@@ -32,24 +31,24 @@ public class ObjectiveDisplay : MonoBehaviour {
         {
             switch (objective.state)
             {
-                case ObjectiveData.ObjectiveState.inactive:
+                case Objective.ObjectiveState.inactive:
                     gameObject.SetActive(false);
                     break;
-                case ObjectiveData.ObjectiveState.active:
+                case Objective.ObjectiveState.active:
                     statusImage.sprite = inProgressSprite;
                     Color currentColor = new Color();
                     ColorUtility.TryParseHtmlString("#7E0092FF", out currentColor);
                     statusImage.color = currentColor;
                     break;
-                case ObjectiveData.ObjectiveState.complete:
+                case Objective.ObjectiveState.complete:
                     statusImage.sprite = completedSprite;
                     break;
             }
-            if(objective.state == ObjectiveData.ObjectiveState.complete)
+            if(objective.state == Objective.ObjectiveState.complete)
             {
                 statusImage.sprite = completedSprite;
             }
-            else if (objective.state == ObjectiveData.ObjectiveState.active)
+            else if (objective.state == Objective.ObjectiveState.active)
             {
                 statusImage.sprite = inProgressSprite;
             }

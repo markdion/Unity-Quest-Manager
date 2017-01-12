@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Assets.Scripts.Quests;
 
 public class QuestDetailsScreen : MonoBehaviour {
 
@@ -35,7 +34,7 @@ public class QuestDetailsScreen : MonoBehaviour {
         {
             foreach(Quest quest in GameManager.questManager.Quests)
             {
-                if(quest.state == ObjectiveData.ObjectiveState.active)
+                if(quest.state == Objective.ObjectiveState.active)
                 {
                     Initialize(quest);
                     break;
@@ -94,7 +93,7 @@ public class QuestDetailsScreen : MonoBehaviour {
         }
 
         // Add objectives to list
-        foreach (var obj in quest.objectives)
+        foreach (Objective obj in quest.objectives)
         {
             ObjectiveDisplay display = Instantiate(objectiveDisplayPrefab) as ObjectiveDisplay;
             display.transform.SetParent(objectivesListTransform, false);

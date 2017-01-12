@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using Assets.Scripts.Quests;
 
 public class QuestDisplay : MonoBehaviour {
 
@@ -31,7 +30,7 @@ public class QuestDisplay : MonoBehaviour {
         {
             textName.text = quest.questName;
         }
-        if(quest.state == ObjectiveData.ObjectiveState.active)
+        if(quest.state == Objective.ObjectiveState.active)
         {
             Debug.Log(string.Format("Set quest as active ({0})", quest.questName));
             sprite.color = new Color(255f, 255f, 255f, 255f);
@@ -40,7 +39,7 @@ public class QuestDisplay : MonoBehaviour {
             ColorUtility.TryParseHtmlString("#7E0092FF", out activeColor);
             sprite.color = activeColor;
         }
-        else if(quest.state == ObjectiveData.ObjectiveState.inactive)
+        else if(quest.state == Objective.ObjectiveState.inactive)
         {
             Debug.Log(string.Format("Set quest as inactive ({0})", quest.questName));
             sprite.color = new Color(255f, 255f, 255f, 0f);

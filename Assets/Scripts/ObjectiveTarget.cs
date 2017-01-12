@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts.Quests;
 
 public class ObjectiveTarget : MonoBehaviour {
 
     public bool visibleIndicator;
-    public ObjectiveData.ObjectiveState state;
-    public ObjectiveData.ObjectiveType kind;
-    public ObjectiveData objective;
+    public Objective.ObjectiveState state;
+    public Objective.ObjectiveType kind;
+    public Objective objective;
 
     void Start()
     {
-        state = ObjectiveData.ObjectiveState.active;
+        state = Objective.ObjectiveState.active;
         visibleIndicator = true;
     }
 
@@ -25,9 +24,9 @@ public class ObjectiveTarget : MonoBehaviour {
                 return;
             }
 
-            if (objective.state == ObjectiveData.ObjectiveState.active && (kind == ObjectiveData.ObjectiveType.collect || kind == ObjectiveData.ObjectiveType.travel))
+            if (objective.state == Objective.ObjectiveState.active && (kind == Objective.ObjectiveType.collect || kind == Objective.ObjectiveType.travel))
             {
-                state = ObjectiveData.ObjectiveState.complete;
+                state = Objective.ObjectiveState.complete;
             }
         }
     }

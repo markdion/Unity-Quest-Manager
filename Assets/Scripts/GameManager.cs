@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts;
-using Assets.Scripts.Quests;
 
 public class GameManager : MonoBehaviour
 {
@@ -72,7 +70,7 @@ public class GameManager : MonoBehaviour
         questManager.SetActiveQuest(firstQuest);
     }
 
-    private void ThirdObjective_OnStarted(ObjectiveData sender)
+    private void ThirdObjective_OnStarted(Objective sender)
     {
         
     }

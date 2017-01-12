@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using Assets.Scripts.Quests;
 
 public class QuestManager : MonoBehaviour {
 
@@ -123,12 +122,12 @@ public class QuestManager : MonoBehaviour {
             {
                 if (quest == selectedQuest)
                 {
-                    quest.state = ObjectiveData.ObjectiveState.active;
+                    quest.state = Objective.ObjectiveState.active;
                     _activeQuest = quest;
                 }
                 else
                 {
-                    quest.state = ObjectiveData.ObjectiveState.inactive;
+                    quest.state = Objective.ObjectiveState.inactive;
                 }
             }
         }
